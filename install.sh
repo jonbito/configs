@@ -3,7 +3,6 @@
 brew install alacritty ripgrep fish tmux lazygit bottom wget node task python timewarrior go rust rust-analyzer
 pip3 install pynvim tasklib six packaging
 mkdir -p ~/.config/fish
-mkdir -p ~/.config/nvim
 mkdir -p ~/.task/hooks
 cp /opt/homebrew/Cellar/timewarrior/1.5.0/share/doc/timew/ext/on-modify.timewarrior ~/.task/hooks/
 chmod +x ~/.task/hooks/on-modify.timewarrior
