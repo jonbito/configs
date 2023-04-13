@@ -1,6 +1,6 @@
 #!/bin/sh
 
-brew install alacritty ripgrep fish tmux lazygit bottom wget node task python timewarrior
+brew install alacritty ripgrep fish tmux lazygit bottom wget node task python timewarrior go rust rust-analyzer
 pip3 install pynvim tasklib six packaging
 mkdir -p ~/.config/fish
 mkdir -p ~/.config/nvim
