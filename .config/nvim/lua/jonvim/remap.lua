@@ -27,3 +27,7 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "?", [[?\v]])
 vim.keymap.set("n", "/", [[/\v]])
 vim.keymap.set("c", "%s/", [[%sm/]])
+
+-- jump to start/end with home keys
+vim.keymap.set("n", "H", "^")
+vim.keymap.set("n", "L", "$")
