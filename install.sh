@@ -1,15 +1,11 @@
 #!/bin/sh
 
-brew install alacritty ripgrep fish tmux lazygit bottom wget node task python timewarrior go rust rust-analyzer
-pip3 install pynvim tasklib six packaging
+brew install alacritty ripgrep fish tmux bottom wget node python go rust rust-analyzer
 mkdir -p ~/.config/fish
-mkdir -p ~/.task/hooks
-cp /opt/homebrew/Cellar/timewarrior/1.5.0/share/doc/timew/ext/on-modify.timewarrior ~/.task/hooks/
-chmod +x ~/.task/hooks/on-modify.timewarrior
-if [[ ! -e ~/.config/nvim ]]; then
-	git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-fi
 cp ./.tmux.conf ~/
 cp ./.gitconfig ~/
 cp ./.config/fish/config.fish ~/.config/fish/
 cp ./.config/alacritty/alacritty.yml ~/.config/alacritty/
+
+rm -rf ~/.config/nvim
+cp -r ./.config/nvim ~/.config/nvim
