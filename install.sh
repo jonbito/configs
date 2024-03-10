@@ -1,6 +1,7 @@
 #!/bin/sh
 
-brew install alacritty ripgrep fish tmux bottom wget node python go rust rust-analyzer luarocks
+brew install alacritty ripgrep fish tmux bottom wget node python go rust rust-analyzer luarocks xwmx/taps/nb
+nb set editor nvim
 mkdir -p ~/.config/fish
 cp ./.tmux.conf ~/
 cp ./.gitconfig ~/
