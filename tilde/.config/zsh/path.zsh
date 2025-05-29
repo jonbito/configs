@@ -9,6 +9,7 @@ prepend "$HOME/go/bin"
 prepend "/opt/homebrew/opt/openjdk/bin"
 prepend "$HOME/.cargo/bin"
 prepend "$HOME/.local/share/fnm"
+prepend "$HOME/.bin"
 
 # Prevent it from being used accidentally elsewhere in the script or by other scripts
 unset prepend
