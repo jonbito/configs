@@ -1,7 +1,7 @@
 (beacon-mode 1)
 
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'light)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 18 :weight 'light))
+      doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 18 :weight 'light))
 (setq doom-theme 'doom-gruvbox)
 
 (setq org-directory "~/org/")
@@ -66,8 +66,8 @@
                 (org-level-6 . 1.1)
                 (org-level-7 . 1.1)
                 (org-level-8 . 1.1)))
-  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'medium :height (cdr face)))
-(set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.3)
+  (set-face-attribute (car face) nil :font "Iosevka Nerd Font" :weight 'medium :height (cdr face)))
+(set-face-attribute 'org-document-title nil :font "Iosevka Nerd Font" :weight 'bold :height 1.3)
 ;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
 (set-face-attribute 'org-block nil :foreground nil :inherit 'doom-font)
 (set-face-attribute 'org-table nil :inherit 'doom-font)
