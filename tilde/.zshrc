@@ -15,10 +15,23 @@ eval "$(fnm env --use-on-cd)"
 source $(brew --prefix)/share/antidote/antidote.zsh
 antidote load
 
-alias e="nvim"
 
-export PATH="~/go/bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+source $HOME/.config/zsh/aliases.zsh
+source $HOME/.config/zsh/path.zsh
+
+
+# Allow local (private) customizations (not checked in to version control)
+[ -f ~/.zsh.local ] && source ~/.zsh.local
+
+# Enable fzf: https://github.com/junegunn/fzf
+if [ $(command -v "fzf") ]; then
+  source $HOME/.config/zsh/fzf.zsh
+fi
+
+# Enable ngrok autocompletions
+if [ $(command -v "ngrok") ]; then
+  eval "$(ngrok completion)"
+fi
 
 # Starship prompt (needs to be at the end)
 if [ $(command -v "starship") ]; then
