@@ -19,6 +19,7 @@ antidote load
 source $HOME/.config/zsh/aliases.zsh
 source $HOME/.config/zsh/path.zsh
 source $HOME/.config/zsh/env.zsh
+source $HOME/.config/zsh/keybindings.zsh
 
 
 # Allow local (private) customizations (not checked in to version control)
