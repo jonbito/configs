@@ -1,0 +1,28 @@
+tap "d12frosted/emacs-plus"
+
+brew "emacs-plus@30"
+brew "libvterm"
+brew "neovim"
+brew "ripgrep"
+brew "starship"
+brew "zellij"
+brew "direnv"
+brew "uv"
+brew "jq"
+brew "bitwarden-cli"
+brew "bat"
+brew "btop"
+brew "fzf"
+brew "node"
+brew "go"
+brew "fnm"
+brew "antidote"
+brew "fish"
+brew "lazygit"
+
+
+cask "font-iosevka-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
+
+cask "wezterm"
+cask "raycast"

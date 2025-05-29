@@ -1,17 +1,52 @@
 #!/bin/sh
 
-brew install alacritty ripgrep tmux bottom wget node python go rust rust-analyzer xwmx/taps/nb
-nb set editor nvim
-cp ./.tmux.conf ~/
-cp ./.gitconfig ~/
-cp ./.zshrc ~/
-cp ./.p10k.zsh ~/
-cp ./.config/alacritty/alacritty.toml ~/.config/alacritty/
+set -euo pipefail
 
-rm -rf ~/.config/nvim
-cp -r ./.config/nvim ~/.config/nvim
+cd "$(dirname $0)"
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone --depth 1 -- https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+light_red=$(tput setaf 9)
+bold=$(tput bold)
+reset=$(tput sgr0)
+
+title() {
+	echo "${bold}==> $1${reset}"
+	echo
+}
+
+warning() {
+	tput setaf 1
+	echo "/!\\ $1 /!\\"
+	tput sgr0
+}
+
+command_exists() {
+	command -v "$@" &>/dev/null
+}
+
+echo -e "${yellow}!!! ${red}WARNING${yellow} !!!"
+echo -e "${light_red}This script will delete all your configuration files!"
+echo -e "${light_red}Use it at your own risk."
+
+if [ $# -ne 1 ] || [ "$1" != "-y" ]; then
+	echo -e "${yellow}Press Enter key to continue...${reset}\n"
+	read key
+fi
+
+# Backup existing zsh file
+if [[ -e "$HOME/.zshrc" ]]; then
+	mv "$HOME/.zshrc" "$HOME/.zshrc.backup"
+fi
+
+title "🫖 Setting up Homebrew..."
+./setup/brew.sh
+echo
+
+# Install dotfiles symlinks
+title "🍤 Setting up symlinks..."
+./setup/symlinks.sh
+echo
+
+echo "🦏 ${green}All done! Open a new terminal for the changes to take effect.${reset}"
