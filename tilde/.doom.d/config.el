@@ -96,7 +96,35 @@
 \n\n"
                             :clock-in t :clock-resume t :jump-to-captured t)
                            ("i", "Inbox" entry (file "inbox.org")
-                            ,(concat "* TODO %?\n" "/Entered on/ %U")))))
+                            ,(concat "* TODO %?\n" "/Entered on/ %U")))
+   org-agenda-custom-commands
+   '(("g" "Get Things Done (GTD)"
+      ((agenda ""
+               ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+                (org-agenda-span 'day)
+                (org-agenda-use-time-grid t)
+                (org-agenda-start-day "0d")
+                (org-deadline-warning-days 0)))
+       (agenda nil
+               ((org-agenda-entry-types '(:deadline))
+                (org-agenda-use-time-grid nil)
+                (org-agenda-format-date "")
+                (org-deadline-warning-days 7)
+                (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "\\* \\(STARTED\\|TODO\\)"))
+                (org-agenda-overriding-header "\nDeadlines")))
+       (todo "TODO"
+             ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+              (org-agenda-prefix-format "  %-12:c [%e] ")
+              (org-agenda-overriding-header "\nTasks\n")))
+       (tags-todo "inbox"
+                  ((org-agenda-prefix-format "  %?-12t% s")
+                   (org-agenda-overriding-header "\nInbox\n")))
+       (tags "CLOSED>=\"<today>\""
+             ((org-agenda-overriding-header "\nCompleted today\n"))))))
+   org-refile-use-outline-path 'file
+   org-outline-path-complete-in-steps nil
+   org-refile-targets '(("projects.org" :regexp . "\\(?:\\(?:Note\\|Task\\)s\\)"))))
+
 
 (defun jon-after-todo-state-change (&rest ignore)
   (let ((state (org-get-todo-state)))
