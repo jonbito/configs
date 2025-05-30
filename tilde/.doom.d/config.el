@@ -4,11 +4,6 @@
       doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 18 :weight 'light))
 (setq doom-theme 'doom-gruvbox)
 
-(setq org-directory "~/org/")
-(setq org-agenda-start-with-log-mode t)
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
-
 ;; Add local .bin to path
 (setq exec-path (append exec-path (list (expand-file-name "~/.bin"))))
 (setq exec-path (append exec-path (list (expand-file-name "~/go/bin"))))
@@ -49,7 +44,69 @@
 (evil-define-key 'normal 'global (kbd "n") 'jon-next-match)
 (evil-define-key 'normal 'global (kbd "N") 'jon-previous-match)
 
+;; (defvar-local jon-format-on-save-enabled t
+;;   "Whether formatting on save is enabled in this buffer.")
+
+;; (defun jon-toggle-format-on-save ()
+;;   "Toggle format-on-save via before-save-hook."
+;;   (interactive)
+;;   (if jon-format-on-save-enabled
+;;       (progn
+;;         (remove-hook 'before-save-hook #'ws-butler-before-save t)
+;;         (setq jon-format-on-save-enabled nil)
+;;         (ws-butler-mode -1)
+;;         (message "Format on save disabled"))
+;;     (add-hook 'before-save-hook #'format-buffer nil t)
+;;     (ws-butler-mode 1)
+;;     (setq jon-format-on-save-enabled t)
+;;     (message "Format on save enabled")))
+
+
+;; (map! :leader
+;;       :desc "Toggle format on save"
+;;       "t D" #'jon-toggle-format-on-save)
+
 ;;;; ORG MODE
+
+(setq org-directory "~/org/"
+      org-agenda-files (list "inbox.org"))
+
+(after! org
+  (setq
+   org-agenda-start-with-log-mode t
+   org-log-done 'time
+   org-log-into-drawer t
+   org-return-follows-link t
+   org-clock-mode-line-total 'today
+   org-agenda-hide-tags-regexp "."
+   org-agenda-prefix-format
+   '((agenda . " %i %-12:c%?-12t% s")
+     (todo   . " %i %-12:c")
+     (tags   . " %i %-12:c")
+     (search . " %i %-12:c"))
+   org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "PAUSED(p)" "|" "DONE(d)" "CANCELLED(c)" ))
+   org-capture-templates `(("m" "Meeting" entry (file "refile.org")
+                            "* MEETING with %? :MEETING:
+\n%U
+\n** Attendees
+\n-
+\n** Meeting Notes      :NOTE:
+\n-
+\n** Next Steps
+\n\n"
+                            :clock-in t :clock-resume t :jump-to-captured t)
+                           ("i", "Inbox" entry (file "inbox.org")
+                            ,(concat "* TODO %?\n" "/Entered on/ %U")))))
+
+(defun jon-after-todo-state-change (&rest ignore)
+  (let ((state (org-get-todo-state)))
+    (cond
+     ((string= state "STARTED")
+      (org-clock-in))
+     ((member state '("PAUSED" "DONE" "CANCELLED"))
+      (org-clock-out)))))
+
+(add-hook 'org-after-todo-state-change-hook #'jon-after-todo-state-change)
 
 (setq visual-fill-column-width 110
       visual-fill-column-center-text t)
