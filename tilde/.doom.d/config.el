@@ -69,7 +69,7 @@
 ;;;; ORG MODE
 
 (setq org-directory "~/org/"
-      org-agenda-files (list "inbox.org"))
+      org-agenda-files (list "inbox.org" "agenda.org" "notes.org" "projects.org"))
 
 (after! org
   (setq
@@ -84,7 +84,7 @@
      (todo   . " %i %-12:c")
      (tags   . " %i %-12:c")
      (search . " %i %-12:c"))
-   org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "PAUSED(p)" "|" "DONE(d)" "CANCELLED(c)" ))
+   org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "PAUSED(p)" "|" "DONE(d)" "CANCELLED(c)" ))
    org-capture-templates `(("m" "Meeting" entry (file "refile.org")
                             "* MEETING with %? :MEETING:
 \n%U
@@ -107,10 +107,13 @@
                 (org-deadline-warning-days 0)))
        (agenda nil
                ((org-agenda-entry-types '(:deadline))
+                (org-agenda-span 'week)
                 (org-agenda-use-time-grid nil)
-                (org-agenda-format-date "")
-                (org-deadline-warning-days 7)
-                (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "\\* \\(STARTED\\|TODO\\)"))
+                (org-agenda-show-all-dates nil)
+                (org-deadline-warning-days 0)
+                (org-agenda-start-with-log-mode 'only)
+                (org-agenda-log-mode-items '(state))
+                (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "\\* \\(STARTED\\|TODO\\|PAUSED\\)"))
                 (org-agenda-overriding-header "\nDeadlines")))
        (todo "TODO"
              ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
@@ -123,7 +126,8 @@
              ((org-agenda-overriding-header "\nCompleted today\n"))))))
    org-refile-use-outline-path 'file
    org-outline-path-complete-in-steps nil
-   org-refile-targets '(("projects.org" :regexp . "\\(?:\\(?:Note\\|Task\\)s\\)"))))
+   org-refile-targets '(("projects.org" :regexp . "\\(?:\\(?:Note\\|Task\\)s\\)")))
+  (add-to-list 'org-todo-keyword-faces '("PAUSED" . (:foreground "orange" :weight bold))))
 
 
 (defun jon-after-todo-state-change (&rest ignore)
