@@ -6,7 +6,7 @@ prepend() {
 }
 
 prepend "$HOME/go/bin"
-prepend "/opt/homebrew/opt/openjdk/bin"
+prepend "$(brew --prefix)/opt/openjdk/bin"
 prepend "$HOME/.cargo/bin"
 prepend "$HOME/.local/share/fnm"
 prepend "$HOME/.bin"

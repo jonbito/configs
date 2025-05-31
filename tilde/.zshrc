@@ -1,6 +1,10 @@
 # ----- Homebrew -----
 # https://brew.sh
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ $(uname -s) == "Darwin" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # ----- Direnv  -----
 # https://github.com/direnv/direnv

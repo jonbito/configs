@@ -14,4 +14,4 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ANALYTICS=1
 
 # GO
-export GOPATH="~/go"
+export GOPATH="$HOME/go"
