@@ -17,6 +17,7 @@ brew "fnm"
 brew "antidote"
 brew "fish"
 brew "lazygit"
+brew "tpm"
 
 
 cask "font-iosevka-nerd-font"

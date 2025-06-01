@@ -5,6 +5,7 @@ prepend() {
   [ -d "$1" ] && PATH="$1:$PATH"
 }
 
+prepend "$HOME/.local/bin"
 prepend "$HOME/go/bin"
 prepend "$(brew --prefix)/opt/openjdk/bin"
 prepend "$HOME/.cargo/bin"

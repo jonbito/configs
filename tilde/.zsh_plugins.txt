@@ -4,3 +4,4 @@ zsh-users/zsh-completions
 zdharma-continuum/fast-syntax-highlighting kind:defer
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-autosuggestions
+marlonrichert/zsh-autocomplete

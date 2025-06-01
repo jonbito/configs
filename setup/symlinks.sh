@@ -175,7 +175,18 @@ install_dotfiles() {
   done
 }
 
+install_custom_bin() {
+  cd "$DOTFILES_DIR/bin"
+
+  for item in *; do
+    src="$PWD/$item"
+    dest="$HOME/.local/bin/$item"
+    symlink_file "$src" "$dest"
+  done
+}
+
 install_dotfiles
+install_custom_bin
 
 echo
 echo 'Done!' | indent
