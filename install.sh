@@ -49,4 +49,9 @@ title "🍤 Setting up symlinks..."
 ./setup/symlinks.sh
 echo
 
+# Install rust
+title "🚀 Setting up extra tools..."
+./setup/misc.sh
+echo
+
 echo "🦏 ${green}All done! Open a new terminal for the changes to take effect.${reset}"

@@ -22,6 +22,7 @@ brew "fish"
 brew "lazygit"
 brew "tmux"
 brew "tpm"
+brew "rustup"
 
 
 cask "font-iosevka-nerd-font"
