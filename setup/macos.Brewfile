@@ -23,6 +23,7 @@ brew "lazygit"
 brew "tmux"
 brew "tpm"
 brew "rustup"
+brew "nb"
 
 
 cask "font-iosevka-nerd-font"
