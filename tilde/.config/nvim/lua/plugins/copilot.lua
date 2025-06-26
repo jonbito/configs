@@ -19,7 +19,7 @@ local prompts = {
 
 return {
   {
-    "Copilot-Nvim/CopilotChat.nvim",
+    "CopilotC-Nvim/CopilotChat.nvim",
     opts = {
       prompts = prompts,
       question_header = "## User ",
