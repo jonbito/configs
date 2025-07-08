@@ -28,6 +28,7 @@ brew "nb"
 
 cask "font-iosevka-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
+cask "nikitabobko/tap/aerospace"
 
 cask "wezterm"
 cask "raycast"
