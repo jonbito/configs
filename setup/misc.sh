@@ -29,6 +29,22 @@ command_exists() {
   command -v "$@" &>/dev/null
 }
 
+## Node.js Installation
+info "Installing Node.js LTS with fnm..."
+fnm install --lts
+fnm use lts-latest
+fnm default lts-latest
+echo
+echo 'Done!' | indent
+echo
+
+## Claude Code Installation
+info "Installing Claude Code..."
+npm install -g @anthropic-ai/claude-code
+echo
+echo 'Done!' | indent
+echo
+
 ## Rust Installation
 info "Installing rust..."
 rustup default stable
