@@ -44,6 +44,10 @@ title "🫖 Setting up Homebrew..."
 ./setup/brew.sh
 echo
 
+title "Setting up Oh My Zsh..."
+./setup/oh-my-zsh.sh
+echo
+
 # Install dotfiles symlinks
 title "🍤 Setting up symlinks..."
 ./setup/symlinks.sh

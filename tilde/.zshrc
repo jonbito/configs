@@ -14,10 +14,11 @@ eval "$(direnv hook zsh)"
 # https://github.com/Schniz/fnm
 eval "$(fnm env --use-on-cd)"
 
-# ----- Antidote -----
-# https://github.com/mattmc3/antidote
-source $(brew --prefix)/share/antidote/antidote.zsh
-antidote load
+# ----- oh-my-zsh ------
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git history zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
+source $ZSH/oh-my-zsh.sh
 
 
 source $HOME/.config/zsh/aliases.zsh

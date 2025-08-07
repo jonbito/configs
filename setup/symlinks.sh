@@ -159,17 +159,18 @@ install_dotfiles() {
       symlink_file "$src" "$dest"
     # is a dir with dotfiles
     elif [ -d "$item" ]; then
-      if [ "$item" != ".config" ]; then
-        src="$PWD/$item"
-        dest="$HOME/$item"
-        symlink_file "$src" "$dest"
-      else
-        # Handle the `.config` dir separately
+      if [ "$item" == ".config" ] || [ "$item" == ".claude" ]; then
+        # Handle the `.config` and `.claude` dirs separately - symlink subdirectories only
         for config_item in "$item"/*; do
           src="$PWD/$config_item"
           dest="$HOME/$config_item"
           symlink_file "$src" "$dest"
         done
+      else
+        # For other directories, symlink the entire directory
+        src="$PWD/$item"
+        dest="$HOME/$item"
+        symlink_file "$src" "$dest"
       fi
     fi
   done
