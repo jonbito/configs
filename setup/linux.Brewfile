@@ -20,6 +20,7 @@ brew "tmux"
 brew "tpm"
 brew "rustup"
 brew "nb"
+brew "pnpm"
 
 
 cask "font-iosevka-nerd-font"
