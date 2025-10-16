@@ -24,7 +24,7 @@ vim.keymap.set("n", "/", [[/\v]])
 vim.keymap.set("c", "%s/", [[%sm/]])
 
 -- Copy relative path with line numbers for Claude Code
-vim.keymap.set({ "n", "v" }, "<leader>cP", function()
+vim.keymap.set({ "n", "v" }, "<leader>ac", function()
   local filepath = vim.fn.expand("%:.")
   local line_start = vim.fn.line("v")
   local line_end = vim.fn.line(".")
