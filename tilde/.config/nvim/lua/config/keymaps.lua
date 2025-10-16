@@ -22,3 +22,26 @@ vim.keymap.set("n", "<leader>Y", '"*Y')
 vim.keymap.set("n", "?", [[?\v]])
 vim.keymap.set("n", "/", [[/\v]])
 vim.keymap.set("c", "%s/", [[%sm/]])
+
+-- Copy relative path with line numbers for Claude Code
+vim.keymap.set({ "n", "v" }, "<leader>cP", function()
+  local filepath = vim.fn.expand("%:.")
+  local line_start = vim.fn.line("v")
+  local line_end = vim.fn.line(".")
+
+  -- Normalize line range (handle both visual selection directions)
+  if line_start > line_end then
+    line_start, line_end = line_end, line_start
+  end
+
+  local result
+  if line_start == line_end then
+    result = string.format("@%s:%d", filepath, line_start)
+  else
+    result = string.format("@%s:%d-%d", filepath, line_start, line_end)
+  end
+
+  vim.fn.setreg("+", result)
+  vim.fn.setreg("*", result)
+  vim.notify("Copied: " .. result, vim.log.levels.INFO)
+end, { desc = "Copy path:line for Claude Code" })
