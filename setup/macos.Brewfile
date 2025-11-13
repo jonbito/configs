@@ -23,7 +23,9 @@ brew "tmux"
 brew "tpm"
 brew "rustup"
 brew "nb"
-brew "pnpm"
+brew "task"
+brew "timewarrior"
+brew "taskwarrior-tui"
 
 
 cask "font-iosevka-nerd-font"
