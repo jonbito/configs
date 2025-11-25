@@ -45,3 +45,25 @@ vim.keymap.set({ "n", "v" }, "<leader>ac", function()
   vim.fn.setreg("*", result)
   vim.notify("Copied: " .. result, vim.log.levels.INFO)
 end, { desc = "Copy path:line for Claude Code" })
+
+-- Copy current line diagnostic
+vim.keymap.set("n", "<leader>ad", function()
+  local line = vim.fn.line(".") - 1 -- 0-indexed for diagnostics API
+  local diagnostics = vim.diagnostic.get(0, { lnum = line })
+
+  if #diagnostics == 0 then
+    vim.notify("No diagnostics on current line", vim.log.levels.WARN)
+    return
+  end
+
+  local messages = {}
+  for _, diagnostic in ipairs(diagnostics) do
+    local severity = vim.diagnostic.severity[diagnostic.severity]
+    table.insert(messages, string.format("[%s] %s", severity, diagnostic.message))
+  end
+
+  local result = table.concat(messages, "\n")
+  vim.fn.setreg("+", result)
+  vim.fn.setreg("*", result)
+  vim.notify("Copied diagnostic(s)", vim.log.levels.INFO)
+end, { desc = "Copy current line diagnostic" })
