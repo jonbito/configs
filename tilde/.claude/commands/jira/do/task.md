@@ -13,7 +13,19 @@ You are implementing a specific JIRA task issue. Follow this systematic approach
 3. Identify the parent confluence page (PRD or Feature) to understand broader context
 4. Check for any dependent tasks or prerequisite work that must be completed first
 
-## Step 2: Deep Technical Analysis
+## Step 2: Environment Setup - CREATE FEATURE BRANCH FIRST
+
+**CRITICAL: Always create a feature branch before any other work:**
+
+1. **Check current branch**: Use `git branch --show-current` to verify you're not on `master` or `main`
+2. **Create feature branch**: Use `git checkout -b {issue-key}-{brief-description}` with JIRA issue key
+3. **Verify branch creation**: Confirm you're on the new branch with `git branch --show-current`
+4. **Document branch name**: Note the branch name for later PR creation
+
+**❌ NEVER proceed without creating a feature branch first**
+**✅ The branch name should follow pattern: `PROJ-123-add-user-auth` (includes JIRA issue key)**
+
+## Step 3: Deep Technical Analysis
 
 **Perform extended thinking for complex implementations:**
 Think deeply about implementing this task issue $ARGUMENTS. Consider the technical approach, potential challenges, integration points, testing strategy, and how this fits into the overall system architecture. What are the key decisions that need to be made during implementation?
@@ -27,7 +39,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 5. **Consider edge cases**: Think through error states, boundary conditions, null/empty inputs, and failure scenarios
 6. **Assess non-functional requirements**: Evaluate performance, security, accessibility, and usability implications
 
-## Step 3: System Impact Assessment
+## Step 4: System Impact Assessment
 
 **Evaluate which system areas will be affected:**
 
@@ -46,7 +58,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 4. Authentication and authorization boundary changes
 5. Caching strategies and performance considerations
 
-## Step 4: Human Validation Check
+## Step 5: Human Validation Check
 
 **STOP and request human review if any of these apply:**
 
@@ -67,19 +79,21 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 4. Dependencies and prerequisites
 5. Wait for explicit approval before proceeding
 
-## Step 5: Environment Setup
+## Step 6: Pre-Implementation Validation Gate
 
-**Use the JIRA tool to update task status:**
+**MANDATORY CHECKPOINT - Verify before proceeding to implementation:**
 
-1. Set the "in-progress" status to the task issue
-2. Add a comment indicating implementation has started
-3. Update the assignee field if needed
+1. **Verify Feature Branch**: Run `git branch --show-current` and confirm you are NOT on `master` or `main`
+   - ❌ If on `master`/`main`: STOP and go back to Step 2
+   - ✅ If on feature branch: Document the branch name and proceed
+2. **Update JIRA Issue Status**: Use Atlassian tool to set "in-progress" status and add comment that implementation has started
+3. **Confirm Requirements**: All acceptance criteria are clearly understood
+4. **Validate Approach**: Technical approach is sound and approved (if Step 5 required human review)
+5. **Check Dependencies**: All prerequisite tasks and dependencies are completed
 
-**Use Git commands to create a feature branch:**
+**🛑 DO NOT PROCEED TO IMPLEMENTATION WITHOUT COMPLETING THIS VALIDATION**
 
-1. Create a new branch with naming pattern: `{issue-key}-{brief-description}`
-
-## Step 6: Design Test Strategy
+## Step 7: Design Test Strategy
 
 **Plan your test-first approach:**
 
@@ -94,7 +108,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Plan test data and setup requirements for your scenarios
 4. Consider mocking strategies for external dependencies
 
-## Step 7: Plan Implementation Approach
+## Step 8: Plan Implementation Approach
 
 **Break down your technical approach:**
 
@@ -111,7 +125,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Handle edge cases and error conditions
 4. Add documentation and comments for complex logic
 
-## Step 8: Execute Core Implementation
+## Step 9: Execute Core Implementation
 
 **Use development tools to implement the functionality:**
 
@@ -129,7 +143,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Use consistent naming and structure with the existing codebase
 4. Optimize for readability and maintainability over clever solutions
 
-## Step 9: Implement and Run Tests
+## Step 10: Implement and Run Tests
 
 **Write comprehensive test coverage:**
 
@@ -146,7 +160,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Mock external dependencies appropriately to isolate your code
 4. Cover both happy path scenarios and error conditions
 
-## Step 10: Update Documentation
+## Step 11: Update Documentation
 
 **Add necessary code documentation:**
 
@@ -160,7 +174,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 2. Add or update API documentation for new endpoints
 3. Update configuration documentation if you added new settings
 
-## Step 11: Quality Validation
+## Step 12: Quality Validation
 
 **Verify functional requirements:**
 
@@ -183,7 +197,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Check that dependencies are properly handled
 4. Test any configuration updates work correctly
 
-## Step 12: Complete the Task
+## Step 13: Complete the Task
 
 **Use the Atlassian tool to update the issue comment:**
 
