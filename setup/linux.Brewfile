@@ -23,6 +23,7 @@ brew "nb"
 brew "task"
 brew "timewarrior"
 brew "taskwarrior-tui"
+brew "opencode"
 
 
 cask "font-iosevka-nerd-font"
