@@ -1,29 +1,30 @@
 # Execute Implementation Task
 
-You are implementing a specific JIRA task issue. Follow this systematic approach for high-quality, complete implementation.
+You are implementing a specific GitHub task issue. Follow this systematic approach for high-quality, complete implementation.
 
-**Task:** Implement JIRA issue $ARGUMENTS with deep technical analysis and smart test-first development.
+**Task:** Implement GitHub issue $ARGUMENTS with deep technical analysis and smart test-first development.
 
 ## Step 1: Fetch and Analyze the Task
 
-**Use the Atlassian tool to:**
+**Use the GitHub tool to:**
 
-1. Fetch the complete task issue details for issue key $ARGUMENTS
+1. Fetch the complete task issue details for issue number $ARGUMENTS
 2. Read the full issue description, acceptance criteria, and implementation requirements
-3. Identify the parent confluence page (PRD or Feature) to understand broader context
+3. Identify the parent issue (PRD or Feature) to understand broader context
 4. Check for any dependent tasks or prerequisite work that must be completed first
+5. Review any linked pull requests or previous implementation attempts
 
 ## Step 2: Environment Setup - CREATE FEATURE BRANCH FIRST
 
 **CRITICAL: Always create a feature branch before any other work:**
 
 1. **Check current branch**: Use `git branch --show-current` to verify you're not on `master` or `main`
-2. **Create feature branch**: Use `git checkout -b {issue-key}-{brief-description}` with JIRA issue key
+2. **Create feature branch**: Use `git checkout -b task/{issue-number}-{brief-description}` with GitHub issue number
 3. **Verify branch creation**: Confirm you're on the new branch with `git branch --show-current`
 4. **Document branch name**: Note the branch name for later PR creation
 
 **❌ NEVER proceed without creating a feature branch first**
-**✅ The branch name should follow pattern: `PROJ-123-add-user-auth` (includes JIRA issue key)**
+**✅ The branch name should follow pattern: `task/123-add-user-auth` (includes issue number)**
 
 ## Step 3: Deep Technical Analysis
 
@@ -86,14 +87,23 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 1. **Verify Feature Branch**: Run `git branch --show-current` and confirm you are NOT on `master` or `main`
    - ❌ If on `master`/`main`: STOP and go back to Step 2
    - ✅ If on feature branch: Document the branch name and proceed
-2. **Update JIRA Issue Status**: Use Atlassian tool to set "in-progress" status and add comment that implementation has started
+2. **Update GitHub Issue Status**: Use GitHub tool to add "in-progress" label and add comment that implementation has started
 3. **Confirm Requirements**: All acceptance criteria are clearly understood
 4. **Validate Approach**: Technical approach is sound and approved (if Step 5 required human review)
 5. **Check Dependencies**: All prerequisite tasks and dependencies are completed
 
 **🛑 DO NOT PROCEED TO IMPLEMENTATION WITHOUT COMPLETING THIS VALIDATION**
 
-## Step 7: Design Test Strategy
+## Step 7: Reference Project Guidelines
+
+**Use the Read tool to check project-specific coding standards:**
+
+1. For Python projects: Read `.claude/contexts/python.md` for uv, FastAPI, and 300-line file limit guidelines
+2. For TypeScript projects: Read `.claude/contexts/typescript.md` for bun, TanStack Router, and shadcn/ui patterns
+3. For React projects: Read `.claude/contexts/react.md` for React 19 and Server Components best practices
+4. Follow the existing patterns, libraries, and architectural decisions in the codebase
+
+## Step 8: Design Test Strategy
 
 **Plan your test-first approach:**
 
@@ -108,7 +118,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Plan test data and setup requirements for your scenarios
 4. Consider mocking strategies for external dependencies
 
-## Step 8: Plan Implementation Approach
+## Step 9: Plan Implementation Approach
 
 **Break down your technical approach:**
 
@@ -125,7 +135,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Handle edge cases and error conditions
 4. Add documentation and comments for complex logic
 
-## Step 9: Execute Core Implementation
+## Step 10: Execute Core Implementation
 
 **Use development tools to implement the functionality:**
 
@@ -143,7 +153,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Use consistent naming and structure with the existing codebase
 4. Optimize for readability and maintainability over clever solutions
 
-## Step 10: Implement and Run Tests
+## Step 11: Implement and Run Tests
 
 **Write comprehensive test coverage:**
 
@@ -160,7 +170,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Mock external dependencies appropriately to isolate your code
 4. Cover both happy path scenarios and error conditions
 
-## Step 11: Update Documentation
+## Step 12: Update Documentation
 
 **Add necessary code documentation:**
 
@@ -174,7 +184,7 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 2. Add or update API documentation for new endpoints
 3. Update configuration documentation if you added new settings
 
-## Step 12: Quality Validation
+## Step 13: Quality Validation
 
 **Verify functional requirements:**
 
@@ -197,13 +207,14 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 3. Check that dependencies are properly handled
 4. Test any configuration updates work correctly
 
-## Step 13: Complete the Task
+## Step 14: Complete the Task
 
-**Use the Atlassian tool to update the issue comment:**
+**Use the GitHub tool to update task status:**
 
-1. Add a completion comment summarizing what was implemented
-2. Update the task issue description with implementation details if needed
-3. Do not update the issue status - leave it in progress
+1. Remove the "in-progress" label from the task issue
+2. Add "completed" or "ready-for-review" label as appropriate
+3. Add a completion comment summarizing what was implemented
+4. Update the task issue description with implementation details if needed
 
 **Document your completion:**
 
@@ -213,55 +224,58 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 4. Note any documentation updates you made
 5. Identify any follow-up items or notes for future tasks
 
-## Step 14: Create Commit
+## Step 15: Create Pull Request
 
-Stage all changes and create a conventional commit for staged changes using the process below. Include the task reference in the commit message.
+**Use the GitHub tool to create a pull request:**
 
-## Process
+1. Create a PR that links to the task issue in the description
+2. Include a clear summary of what changes were made
+3. Add testing instructions for reviewers
+4. Request appropriate reviewers based on the areas affected
 
-1. Review staged changes with git status and git diff
-2. Create the commit with the selected message
+**Structure your PR description like this:**
 
-## Conventional Commit Format
+```markdown
+## Summary
 
+Implements task #{task_number}: {task_title}
+
+## Changes
+
+- {Specific change 1}
+- {Specific change 2}
+- {Specific change 3}
+
+## Testing
+
+- [ ] Unit tests added and passing
+- [ ] Integration tests passing
+- [ ] Manual testing completed
+
+## Checklist
+
+- [ ] Code follows project standards
+- [ ] Documentation updated
+- [ ] All acceptance criteria met
+
+Closes #{task_number}
 ```
-Type(scope): description
 
-body
+## Step 16: Follow Through to Completion
 
-[optional footers]
-```
+**Monitor the code review process:**
 
-Common types:
+1. Respond promptly to reviewer feedback and questions
+2. Make requested changes using the Edit tool
+3. Ensure all CI/CD tests continue to pass
+4. Update documentation based on reviewer feedback
 
-- feat: new feature
-- fix: bug fix
-- docs: documentation changes
-- style: formatting, missing semicolons, etc
-- refactor: code restructuring without changing behavior
-- perf: performance improvements
-- test: adding or updating tests
-- build: build system or dependencies
-- ci: CI configuration changes
-- chore: maintenance tasks
+**After the PR is merged, use the GitHub tool to:**
 
-Examples:
-
-- feat(auth): add OAuth2 login support
-- fix(api): handle null response from user endpoint
-- docs: update installation instructions
-- refactor(parser): simplify token handling logic
-
-Rules:
-
-- Limit the subject line to 50 characters
-- Capitalize the subject/description line
-- Do not end the subject line with a period
-- Separate the subject from the body with a blank line
-- Wrap the body at 72 characters
-- Use the body to explain what and why
-- Use the imperative mood in the subject line let it seem like you’re giving a command eg "fix(tests): Add unit tests for user authentication". Using the imperative mood in commit messages makes them more consistent and commands-like, which is helpful in understanding the actions taken.
-- Do NOT include the generated by or any Claude related messages.
+1. Verify the task issue was automatically closed (or close it manually)
+2. Update the parent issue (PRD or Feature) with progress
+3. Add a completion comment to the parent issue
+4. Clean up the feature branch if your project doesn't do this automatically
 
 ## Final Summary
 
@@ -274,4 +288,4 @@ Rules:
 - **Next Steps**: Suggest any follow-up tasks or considerations
 - **PR Status**: Pull request number and current status
 
-This systematic approach ensures high-quality implementation with complete traceability through JIRA's issue workflow.
+This systematic approach ensures high-quality implementation with complete traceability through GitHub's issue and PR workflow.

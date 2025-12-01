@@ -5,9 +5,7 @@ Create a conventional commit for staged changes: $ARGUMENTS
 ## Process
 
 1. Review staged changes with git status and git diff
-2. Analyze the changes and suggest 3-5 conventional commit message options
-3. Wait for user to select their preferred option
-4. Create the commit with the selected message
+2. Create the commit with the selected message
 
 ## Conventional Commit Format
 

@@ -160,11 +160,19 @@ install_dotfiles() {
     # is a dir with dotfiles
     elif [ -d "$item" ]; then
       if [ "$item" == ".config" ] || [ "$item" == ".claude" ]; then
-        # Handle the `.config` and `.claude` dirs separately - symlink subdirectories only
+        # Handle the `.config`, `.claude` and `opencode` dirs separately - symlink subdirectories only
         for config_item in "$item"/*; do
-          src="$PWD/$config_item"
-          dest="$HOME/$config_item"
-          symlink_file "$src" "$dest"
+          if [ "$config_item" == ".config/opencode" ]; then
+            for opencode_item in "$config_item"/*; do
+              src="$PWD/$opencode_item"
+              dest="$HOME/$opencode_item"
+              symlink_file "$src" "$dest"
+            done
+          else
+            src="$PWD/$config_item"
+            dest="$HOME/$config_item"
+            symlink_file "$src" "$dest"
+          fi
         done
       else
         # For other directories, symlink the entire directory

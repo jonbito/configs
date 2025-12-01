@@ -1,16 +1,14 @@
 # Execute Implementation Task
 
-You are implementing a specific JIRA task issue. Follow this systematic approach for high-quality, complete implementation.
+You are implementing a specific task issue. Follow this systematic approach for high-quality, complete implementation.
 
-**Task:** Implement JIRA issue $ARGUMENTS with deep technical analysis and smart test-first development.
+**Task:** Implement task $ARGUMENTS with deep technical analysis and smart test-first development.
 
 ## Step 1: Fetch and Analyze the Task
 
-**Use the Atlassian tool to:**
-
-1. Fetch the complete task issue details for issue key $ARGUMENTS
-2. Read the full issue description, acceptance criteria, and implementation requirements
-3. Identify the parent confluence page (PRD or Feature) to understand broader context
+1. Fetch the source markdown doc details using the filename/path from $ARGUMENTS. If only the filename or ID is provided, look in `docs/{id}-{description}/[Task {ID}] {Area}: {Specific Implementation}.md`.
+2. Read the full task description, acceptance criteria, and implementation requirements
+3. Identify the parent doc (PRD or Feature) to understand broader context
 4. Check for any dependent tasks or prerequisite work that must be completed first
 
 ## Step 2: Environment Setup - CREATE FEATURE BRANCH FIRST
@@ -18,12 +16,12 @@ You are implementing a specific JIRA task issue. Follow this systematic approach
 **CRITICAL: Always create a feature branch before any other work:**
 
 1. **Check current branch**: Use `git branch --show-current` to verify you're not on `master` or `main`
-2. **Create feature branch**: Use `git checkout -b {issue-key}-{brief-description}` with JIRA issue key
+2. **Create feature branch**: Use `git checkout -b {brief-description}` with a descriptive name
 3. **Verify branch creation**: Confirm you're on the new branch with `git branch --show-current`
 4. **Document branch name**: Note the branch name for later PR creation
 
 **❌ NEVER proceed without creating a feature branch first**
-**✅ The branch name should follow pattern: `PROJ-123-add-user-auth` (includes JIRA issue key)**
+**✅ The branch name should be concise and describe the task (e.g., `add-user-authentication`, `fix-login-bug`)**
 
 ## Step 3: Deep Technical Analysis
 
@@ -86,10 +84,9 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 1. **Verify Feature Branch**: Run `git branch --show-current` and confirm you are NOT on `master` or `main`
    - ❌ If on `master`/`main`: STOP and go back to Step 2
    - ✅ If on feature branch: Document the branch name and proceed
-2. **Update JIRA Issue Status**: Use Atlassian tool to set "in-progress" status and add comment that implementation has started
-3. **Confirm Requirements**: All acceptance criteria are clearly understood
-4. **Validate Approach**: Technical approach is sound and approved (if Step 5 required human review)
-5. **Check Dependencies**: All prerequisite tasks and dependencies are completed
+2. **Confirm Requirements**: All acceptance criteria are clearly understood
+3. **Validate Approach**: Technical approach is sound and approved (if Step 5 required human review)
+4. **Check Dependencies**: All prerequisite tasks and dependencies are completed
 
 **🛑 DO NOT PROCEED TO IMPLEMENTATION WITHOUT COMPLETING THIS VALIDATION**
 
@@ -199,11 +196,8 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 
 ## Step 13: Complete the Task
 
-**Use the Atlassian tool to update the issue comment:**
-
-1. Add a completion comment summarizing what was implemented
-2. Update the task issue description with implementation details if needed
-3. Do not update the issue status - leave it in progress
+1. Add a completion section in the task file summarizing what was implemented
+2. Update the task description with implementation details if needed
 
 **Document your completion:**
 
@@ -215,14 +209,14 @@ Think deeply about implementing this task issue $ARGUMENTS. Consider the technic
 
 ## Step 14: Create Commit
 
-Stage all changes and create a conventional commit for staged changes using the process below. Include the task reference in the commit message.
+Stage all changes and create a conventional commit for staged changes
 
-## Process
+### Process
 
 1. Review staged changes with git status and git diff
 2. Create the commit with the selected message
 
-## Conventional Commit Format
+### Conventional Commit Format
 
 ```
 Type(scope): description
@@ -260,18 +254,18 @@ Rules:
 - Separate the subject from the body with a blank line
 - Wrap the body at 72 characters
 - Use the body to explain what and why
-- Use the imperative mood in the subject line let it seem like you’re giving a command eg "fix(tests): Add unit tests for user authentication". Using the imperative mood in commit messages makes them more consistent and commands-like, which is helpful in understanding the actions taken.
+- Use the imperative mood in the subject line let it seem like you’re giving a command eg “feat: Add unit tests for user authentication”. Using the imperative mood in commit messages makes them more consistent and commands-like, which is helpful in understanding the actions taken.
 - Do NOT include the generated by or any Claude related messages.
 
 ## Final Summary
 
 **Provide a comprehensive implementation summary:**
 
-- **Task Completed**: Issue #{issue_number} and brief description
+- **Task Completed**: Task #{task_number} and brief description
 - **Files Modified**: List the specific files changed and major modifications
 - **Tests Added**: Describe test coverage and key scenarios tested
 - **Key Decisions**: Note important implementation choices and rationale
 - **Next Steps**: Suggest any follow-up tasks or considerations
 - **PR Status**: Pull request number and current status
 
-This systematic approach ensures high-quality implementation with complete traceability through JIRA's issue workflow.
+This systematic approach ensures high-quality implementation with complete traceability through task workflow.
