@@ -172,12 +172,17 @@ Think deeply about breaking down this work from issue $ARGUMENTS. Consider all t
 - [ ] Code reviewed and merged
 ```
 
-**Set up GitHub relationships and labels:**
+**Set up GitHub relationships and labels (TWO-STEP PROCESS - DO NOT SKIP):**
 
-1. **Create sub-issue relationship**: Use GitHub's issue creation with parent relationship
-2. **Add labels**: `task`, `{area}` (frontend/backend/etc.), `{size}` (S/M/L)
-3. **Link to parent**: Ensure proper parent-child relationship is established in GitHub
+1. **Create the task issue first**: Use `issue_write` with `method: "create"` to create each task issue with appropriate labels (`task`, `{area}`, `{size}`)
+2. **Get the issue ID**: After creation, note the returned issue **ID** (this is different from the issue number - the ID is a numeric identifier like `123456789`)
+3. **Add sub-issue relationship (CRITICAL)**: Use `sub_issue_write` with:
+   - `method: "add"`
+   - `issue_number`: the parent issue number (from $ARGUMENTS)
+   - `sub_issue_id`: the **ID** of the newly created task issue (NOT the issue number)
 4. **Reference in description**: Include "Part of #{parent_issue_number}" in the issue body
+
+**IMPORTANT**: The sub-issue relationship MUST be created using `sub_issue_write` AFTER the issue is created. Simply mentioning the parent in the description does NOT create the actual GitHub sub-issue relationship.
 
 ## Step 6: Organize and Link Tasks
 
