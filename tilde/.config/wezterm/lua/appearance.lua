@@ -4,7 +4,7 @@ local M = {}
 
 M.color_scheme = "GruvboxDarkHard"
 M.font = wezterm.font_with_fallback({
-	"JetBrainsMono Nerd Font",
+	"JetBrainsMono Nerd Font Mono",
 	"Iosevka Nerd Font",
 	"Arial",
 })

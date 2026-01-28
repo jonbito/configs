@@ -36,8 +36,9 @@ Think deeply about breaking down this work from issue $ARGUMENTS. Consider all t
 3. **CLI**: Note needed commands, help text, configuration handling, user experience improvements
 4. **Database**: Check for schema changes, migrations, queries, performance optimization needs
 5. **Infrastructure**: Consider deployment, monitoring, configuration, scaling requirements
-6. **Testing**: Plan unit tests, integration tests, end-to-end testing, performance testing
-7. **Documentation**: Identify user guides, API docs, development documentation needs
+6. **Documentation**: Identify user guides, API docs, development documentation needs
+
+**Note:** Testing (unit tests, integration tests, e2e tests) should be included as part of each implementation task, not as separate tasks.
 
 **Map integration points that require attention:**
 
@@ -58,36 +59,30 @@ Think deeply about breaking down this work from issue $ARGUMENTS. Consider all t
 
 **Choose your breakdown approach based on complexity:**
 
-**For Simple Issues (2-4 tasks):**
+**For Simple Issues (2-3 tasks):**
 
-1. Core implementation task
-2. Testing task
-3. Documentation task
+1. Core implementation task (with tests)
+2. Documentation task
 
-**For Moderate Issues (4-8 tasks):**
+**For Moderate Issues (3-6 tasks):**
 
 1. Research/design task
-2. Backend implementation task(s)
-3. Frontend implementation task(s)
-4. Integration testing task
-5. Documentation task
+2. Backend implementation task(s) (with tests)
+3. Frontend implementation task(s) (with tests)
+4. Documentation task
 
-**For Complex Issues (8+ tasks):**
+**For Complex Issues (6+ tasks):**
 
 1. Research and architecture task
-2. Backend implementation tasks
+2. Backend implementation tasks (each with tests)
    - 2.1. Database schema and models
    - 2.2. API endpoints
    - 2.3. Business logic
-3. Frontend implementation tasks
+3. Frontend implementation tasks (each with tests)
    - 3.1. Components and UI
    - 3.2. State management
    - 3.3. Integration
-4. Testing tasks
-   - 4.1. Unit tests
-   - 4.2. Integration tests
-   - 4.3. End-to-end tests
-5. Documentation and deployment
+4. Documentation and deployment
 
 **Hierarchical Numbering Rules:**
 
@@ -111,9 +106,7 @@ Think deeply about breaking down this work from issue $ARGUMENTS. Consider all t
 - `[Task 2.3] Backend: JWT token management and validation`
 - `[Task 3.1] Frontend: Login form component`
 - `[Task 3.2] Frontend: Authentication state management`
-- `[Task 4.1] Testing: Unit tests for authentication API`
-- `[Task 4.2] Testing: Integration tests for login flow`
-- `[Task 5] Documentation: API documentation and user guide`
+- `[Task 4] Documentation: API documentation and user guide`
 
 **Use this template for each task issue body:**
 
@@ -122,7 +115,7 @@ Think deeply about breaking down this work from issue $ARGUMENTS. Consider all t
 
 **Parent Issue:** #{parent_issue_number} (Part of parent issue)
 **Task Number:** {Number} (e.g., 2.1, 3.2, 4)
-**Area:** {Frontend/Backend/CLI/Database/Infrastructure/Testing/Documentation}
+**Area:** {Frontend/Backend/CLI/Database/Infrastructure/Documentation}
 **Estimated Effort:** {S/M/L} ({timeframe})
 
 ## Description
@@ -236,18 +229,13 @@ This issue has been broken down into the following implementation tasks:
 - [ ] #{task3.1} - [Task 3.1] Frontend: UI components
 - [ ] #{task3.2} - [Task 3.2] Frontend: State management and integration
 
-### 4. Testing & Quality
+### 4. Documentation & Deployment
 
-- [ ] #{task4.1} - [Task 4.1] Testing: Unit tests
-- [ ] #{task4.2} - [Task 4.2] Testing: Integration tests
-
-### 5. Documentation & Deployment
-
-- [ ] #{task5} - [Task 5] Documentation: API docs and user guides
+- [ ] #{task4} - [Task 4] Documentation: API docs and user guides
 
 **Total Tasks:** {count}
 **Estimated Effort:** {total_estimate}
-**Critical Path:** Task 1 → Task 2.1 → Task 2.2 → Task 3.1 → Task 4.2
+**Critical Path:** Task 1 → Task 2.1 → Task 2.2 → Task 3.1 → Task 4
 **Implementation Order:** Follow task numbering sequence for optimal dependency flow
 ```
 
@@ -258,7 +246,7 @@ This issue has been broken down into the following implementation tasks:
 1. Verify all acceptance criteria are covered by tasks
 2. Ensure no implementation areas are missing
 3. Confirm dependencies are identified and sequenced
-4. Verify testing tasks are included for each major component
+4. Verify each implementation task includes appropriate testing requirements
 
 **Check clarity:**
 
@@ -296,7 +284,7 @@ Ensure all identified task sub-issues have been created and properly linked to t
   - Task 2.2: [Title and link]
   - Task 3.1: [Title and link]
   - etc.
-- **Task Categories**: Distribution across areas (Frontend, Backend, Testing, etc.)
+- **Task Categories**: Distribution across areas (Frontend, Backend, Documentation, etc.)
 - **Critical Path**: Key dependency chain showing numbered sequence (e.g., Task 1 → Task 2.1 → Task 3.1)
 - **Implementation Order**: Follow numerical sequence for optimal workflow
 - **Dependencies**: Any blocking factors or prerequisites identified
