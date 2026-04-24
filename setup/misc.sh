@@ -38,9 +38,9 @@ echo
 echo 'Done!' | indent
 echo
 
-## Claude Code Installation
-info "Installing Claude Code..."
-npm install -g @anthropic-ai/claude-code
+## Codex Installation
+info "Installing Codex..."
+npm install -g @openai/codex
 echo
 echo 'Done!' | indent
 echo

@@ -159,7 +159,16 @@ install_dotfiles() {
       symlink_file "$src" "$dest"
     # is a dir with dotfiles
     elif [ -d "$item" ]; then
-      if [ "$item" == ".config" ] || [ "$item" == ".claude" ]; then
+      if [ "$item" == ".codex" ]; then
+        # Handle Codex skills separately - symlink individual skill directories only
+        for codex_skill in "$item"/skills/*; do
+          if [ -d "$codex_skill" ]; then
+            src="$PWD/$codex_skill"
+            dest="$HOME/$codex_skill"
+            symlink_file "$src" "$dest"
+          fi
+        done
+      elif [ "$item" == ".config" ] || [ "$item" == ".claude" ]; then
         # Handle the `.config`, `.claude` and `opencode` dirs separately - symlink subdirectories only
         for config_item in "$item"/*; do
           if [ "$config_item" == ".config/opencode" ]; then

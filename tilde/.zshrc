@@ -20,12 +20,10 @@ ZSH_THEME="robbyrussell"
 plugins=(git history zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
 source $ZSH/oh-my-zsh.sh
 
-
 source $HOME/.config/zsh/aliases.zsh
 source $HOME/.config/zsh/path.zsh
 source $HOME/.config/zsh/env.zsh
 source $HOME/.config/zsh/keybindings.zsh
-
 
 # Allow local (private) customizations (not checked in to version control)
 [ -f ~/.zsh.local ] && source ~/.zsh.local
@@ -52,3 +50,12 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+export PATH=/Users/arch/.meteor:$PATH
+
+# pnpm
+export PNPM_HOME="/Users/arch/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
