@@ -29,6 +29,14 @@ command_exists() {
   command -v "$@" &>/dev/null
 }
 
+## Taskwarrior Configuration
+info "Configuring Taskwarrior..."
+task rc.confirmation=off config uda.note.type string
+task rc.confirmation=off config uda.note.label Note
+echo
+echo 'Done!' | indent
+echo
+
 ## Node.js Installation
 info "Installing Node.js LTS with fnm..."
 fnm install --lts

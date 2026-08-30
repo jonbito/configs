@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+herdr_bin="${HERDR_BIN_PATH:-herdr}"
+search_root="${HERDR_SESSIONIZER_ROOT:-$HOME/src}"
+
+if (( $# > 1 )); then
+  printf 'usage: %s [project-directory]\n' "${0##*/}" >&2
+  exit 2
+fi
+
+if (( $# == 1 )); then
+  selected=$1
+else
+  if [[ ! -d $search_root ]]; then
+    printf 'project directory does not exist: %s\n' "$search_root" >&2
+    exit 1
+  fi
+
+  selected=$(find "$search_root" -mindepth 1 -maxdepth 1 -type d -print | sort | fzf --prompt='workspace> ') || exit 0
+fi
+
+[[ -n $selected ]] || exit 0
+
+if [[ ! -d $selected ]]; then
+  printf 'project directory does not exist: %s\n' "$selected" >&2
+  exit 1
+fi
+
+selected=$(cd "$selected" && pwd -P)
+selected_name=$(basename "$selected")
+
+workspaces=$("$herdr_bin" workspace list)
+workspace_id=$(jq -r --arg label "$selected_name" '
+  [.result.workspaces[] | select(.label == $label)]
+  | sort_by(if .focused then 0 else 1 end)
+  | .[0].workspace_id // empty
+' <<<"$workspaces")
+
+if [[ -n $workspace_id ]]; then
+  "$herdr_bin" workspace focus "$workspace_id" >/dev/null
+else
+  "$herdr_bin" workspace create --cwd "$selected" --label "$selected_name" --focus >/dev/null
+fi

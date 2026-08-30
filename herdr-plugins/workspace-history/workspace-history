@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+herdr_bin="${HERDR_BIN_PATH:-herdr}"
+state_dir="${HERDR_PLUGIN_STATE_DIR:?HERDR_PLUGIN_STATE_DIR is required}"
+socket_path="${HERDR_SOCKET_PATH:-default}"
+session_key=$(printf '%s' "$socket_path" | cksum)
+session_key=${session_key%% *}
+state_file="$state_dir/workspace-history-$session_key.json"
+lock_dir="$state_file.lock"
+state_tmp=""
+lock_held=false
+
+cleanup() {
+  if [[ -n $state_tmp ]]; then
+    rm -f -- "$state_tmp"
+  fi
+  if [[ $lock_held == true ]]; then
+    rmdir "$lock_dir" 2>/dev/null || true
+  fi
+}
+
+trap cleanup EXIT
+trap 'exit 129' HUP
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+acquire_lock() {
+  local attempts=0
+
+  mkdir -p "$state_dir"
+  until mkdir "$lock_dir" 2>/dev/null; do
+    attempts=$((attempts + 1))
+    if (( attempts >= 100 )); then
+      printf 'timed out waiting for workspace history lock\n' >&2
+      exit 1
+    fi
+    sleep 0.01
+  done
+  lock_held=true
+}
+
+release_lock() {
+  rmdir "$lock_dir"
+  lock_held=false
+}
+
+read_state() {
+  state_current=""
+  state_previous=""
+
+  if [[ -f $state_file ]]; then
+    state_current=$(jq -r '.current_workspace_id // empty' "$state_file" 2>/dev/null || true)
+    state_previous=$(jq -r '.previous_workspace_id // empty' "$state_file" 2>/dev/null || true)
+  fi
+}
+
+write_state() {
+  local current=$1
+  local previous=$2
+
+  state_tmp="$state_file.$$"
+  umask 077
+  jq -n \
+    --arg current "$current" \
+    --arg previous "$previous" \
+    '{current_workspace_id: $current, previous_workspace_id: $previous}' >"$state_tmp"
+  mv -f -- "$state_tmp" "$state_file"
+  state_tmp=""
+}
+
+focused_workspace() {
+  "$herdr_bin" workspace list | jq -r '
+    [.result.workspaces[] | select(.focused)][0].workspace_id // empty
+  '
+}
+
+record_focus() {
+  local workspace_id=""
+
+  if [[ -n ${HERDR_PLUGIN_EVENT_JSON:-} ]]; then
+    workspace_id=$(jq -r '.data.workspace_id // empty' <<<"$HERDR_PLUGIN_EVENT_JSON" 2>/dev/null || true)
+  fi
+  if [[ -z $workspace_id ]]; then
+    workspace_id=${HERDR_WORKSPACE_ID:-}
+  fi
+  if [[ -z $workspace_id ]]; then
+    workspace_id=$(focused_workspace)
+  fi
+  [[ -n $workspace_id ]] || exit 0
+
+  acquire_lock
+  read_state
+  if [[ $workspace_id != "$state_current" ]]; then
+    write_state "$workspace_id" "$state_current"
+  fi
+  release_lock
+}
+
+toggle_workspace() {
+  local workspaces active primary secondary target=""
+
+  workspaces=$("$herdr_bin" workspace list)
+  active=$(jq -r '[.result.workspaces[] | select(.focused)][0].workspace_id // empty' <<<"$workspaces")
+  [[ -n $active ]] || exit 0
+
+  acquire_lock
+  read_state
+  release_lock
+
+  if [[ -n $state_current && $state_current != "$active" ]]; then
+    primary=$state_current
+    secondary=$state_previous
+  else
+    primary=$state_previous
+    secondary=$state_current
+  fi
+
+  for candidate in "$primary" "$secondary"; do
+    if [[ -n $candidate && $candidate != "$active" ]] &&
+      jq -e --arg id "$candidate" '.result.workspaces | any(.[]; .workspace_id == $id)' \
+        <<<"$workspaces" >/dev/null; then
+      target=$candidate
+      break
+    fi
+  done
+
+  [[ -n $target ]] || exit 0
+  "$herdr_bin" workspace focus "$target" >/dev/null
+}
+
+case "${1:-}" in
+  record)
+    record_focus
+    ;;
+  toggle)
+    toggle_workspace
+    ;;
+  *)
+    printf 'usage: %s <record|toggle>\n' "${0##*/}" >&2
+    exit 2
+    ;;
+esac

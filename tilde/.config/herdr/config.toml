@@ -1,0 +1,57 @@
+[keys]
+prefix = "ctrl+a"
+
+# Panes
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+resize_pane_left = "prefix+ctrl+h"
+resize_pane_down = "prefix+ctrl+j"
+resize_pane_up = "prefix+ctrl+k"
+resize_pane_right = "prefix+ctrl+l"
+
+# Herdr calls a side-by-side split "vertical" and a stacked split "horizontal".
+split_vertical = "prefix+|"
+split_horizontal = "prefix+minus"
+close_pane = "prefix+x"
+zoom = "prefix+m"
+
+# Tabs (tmux windows)
+new_tab = "prefix+c"
+close_tab = "prefix+ampersand"
+previous_tab = ["prefix+p", "shift+left"]
+next_tab = ["prefix+n", "shift+right"]
+switch_tab = "prefix+1..9"
+
+# Herdr's copy-mode keys already mostly match copy-mode-vi: v selects and y
+# copies. Enter copies rather than cancels; copy-mode's internal keys cannot
+# currently be configured.
+copy_mode = "prefix+["
+
+# Herdr-specific navigation
+workspace_picker = "prefix+w"
+
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "~/.local/bin/herdr-sessionizer"
+description = "open project workspace"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+space"
+type = "plugin_action"
+command = "local.workspace-history.toggle"
+description = "toggle previous workspace"
+
+[ui]
+# Agents panel order: explicit choice of "spaces" (grouped by space, the default) over "priority".
+agent_panel_sort = "spaces"
+tab_bar_position = "bottom"
+
+[theme]
+name = "gruvbox"
+auto_switch = false

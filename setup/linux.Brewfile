@@ -20,7 +20,7 @@ brew "rustup"
 brew "task"
 brew "timewarrior"
 brew "taskwarrior-tui"
-brew "opencode"
+brew "herdr"
 
 
 cask "font-iosevka-nerd-font"

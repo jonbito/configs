@@ -1,0 +1,19 @@
+id = "local.workspace-history"
+name = "Workspace History"
+version = "0.1.0"
+min_herdr_version = "0.8.2"
+description = "Track workspace focus history and toggle to the last workspace"
+platforms = ["linux", "macos"]
+
+[[startup]]
+command = ["bash", "workspace-history", "record"]
+
+[[actions]]
+id = "toggle"
+title = "Toggle previous workspace"
+contexts = ["workspace"]
+command = ["bash", "workspace-history", "toggle"]
+
+[[events]]
+on = "workspace.focused"
+command = ["bash", "workspace-history", "record"]

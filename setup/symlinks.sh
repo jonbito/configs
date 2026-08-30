@@ -159,16 +159,7 @@ install_dotfiles() {
       symlink_file "$src" "$dest"
     # is a dir with dotfiles
     elif [ -d "$item" ]; then
-      if [ "$item" == ".codex" ]; then
-        # Handle Codex skills separately - symlink individual skill directories only
-        for codex_skill in "$item"/skills/*; do
-          if [ -d "$codex_skill" ]; then
-            src="$PWD/$codex_skill"
-            dest="$HOME/$codex_skill"
-            symlink_file "$src" "$dest"
-          fi
-        done
-      elif [ "$item" == ".config" ] || [ "$item" == ".claude" ]; then
+      if [ "$item" == ".config" ] || [ "$item" == ".claude" ]; then
         # Handle the `.config`, `.claude` and `opencode` dirs separately - symlink subdirectories only
         for config_item in "$item"/*; do
           if [ "$config_item" == ".config/opencode" ]; then
@@ -203,8 +194,26 @@ install_custom_bin() {
   done
 }
 
+install_herdr_plugins() {
+  local plugin_dir
+
+  if [ ! -d "$DOTFILES_DIR/herdr-plugins" ] || ! command -v herdr >/dev/null 2>&1; then
+    return
+  fi
+
+  info 'Linking Herdr plugins...'
+
+  for plugin_dir in "$DOTFILES_DIR"/herdr-plugins/*; do
+    if [ -f "$plugin_dir/herdr-plugin.toml" ]; then
+      herdr plugin link "$plugin_dir" --enabled >/dev/null
+      success "linked Herdr plugin $(basename "$plugin_dir")"
+    fi
+  done
+}
+
 install_dotfiles
 install_custom_bin
+install_herdr_plugins
 
 echo
 echo 'Done!' | indent
