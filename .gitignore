@@ -7,3 +7,4 @@ tilde/.config/herdr/*.sock
 tilde/.config/herdr/plugins.json
 tilde/.config/herdr/plugins/
 tilde/.config/herdr/session.json
+tilde/.config/herdr/release-notes.json

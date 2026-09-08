@@ -61,3 +61,16 @@ rustup component add rust-analyzer
 echo
 echo 'Done!' | indent
 echo
+
+## PI Installation
+info "Installing PI..."
+npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+pi install npm:pi-mcp-adapter
+pi install npm:pi-web-access
+pi install npm:pi-subagents
+pi install npm:@juicesharp/rpiv-ask-user-question
+pi install npm:@juicesharp/rpiv-todo
+pi install npm:pi-lens
+echo
+echo 'Done!' | indent
+echo

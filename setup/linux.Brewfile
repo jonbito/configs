@@ -21,6 +21,7 @@ brew "task"
 brew "timewarrior"
 brew "taskwarrior-tui"
 brew "herdr"
+brew "treehouse"
 
 
 cask "font-iosevka-nerd-font"
